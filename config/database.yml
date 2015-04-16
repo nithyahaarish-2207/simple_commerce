@@ -1,0 +1,21 @@
+common: &common
+  adapter: postgresql
+  username: postgres
+  password: root
+  encoding: UTF8
+  host: 127.0.0.1
+  
+development:
+  database: simple_commerce_dev
+  <<: *common
+
+test:
+  database: simple_commerce_test
+  <<: *common
+
+production:
+  database: simple_commerce
+  <<: *common
+
+
+

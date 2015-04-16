@@ -1,0 +1,20 @@
+  <%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= javascript_include_tag "application" %>
+<%- model_class = Order -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Orders Dashboard" %></h1>
+</div>
+<%= link_to "Create New Order", products_path,:class => 'btn btn-primary' %>
+
+<table class="table table-striped">
+<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed today") %></th><tr>
+<%= render :partial => "dashboard", :locals => { :orders => @order_today, :model_class => Order }%>
+<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed this week") %></th><tr>
+<%= render :partial => "dashboard", :locals => { :orders => @order_this_week, :model_class => Order }%>
+<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed This Month") %></th><tr>
+<%= render :partial => "dashboard", :locals => { :orders => @order_this_month, :model_class => Order }%>
+</table>
+
+<%= link_to "Create New Order", products_path,:class => 'btn btn-primary' %>
