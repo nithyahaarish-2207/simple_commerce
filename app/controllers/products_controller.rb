@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find(params[:id])
   end
 
   def create
@@ -18,8 +19,8 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'product was successfully created.' }
-        format.json { render json: @product, status: :created, location: @product }
+        format.html { redirect_to products_path, notice: 'product was successfully created.' }
+        format.json { render json: products_path, status: :created, location: @product }
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -29,8 +30,8 @@ end
   def update
     @product = Product.find(params[:id])
     respond_to do |format|
-      if @product.update_attributes(params[:user])
-        format.html { redirect_to @product, notice: 'product was successfully updated.' }
+      if @product.update_attributes(params[:product])
+        format.html { redirect_to products_path, notice: 'product was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -39,4 +40,8 @@ end
     end
   end
 
+ def destroy
+   Product.find(params[:id]).destroy
+   redirect_to products_path
+ end
 end

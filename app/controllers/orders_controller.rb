@@ -31,8 +31,13 @@ class OrdersController < ApplicationController
    #~ redirect_to orders_path
  end
  
+ def view
+  @order = Order.find(params[:id])
+  @line_items = @order.products
+  p  @line_items
+ end
+
  def destroy
-   p 7777777777777777777777777
    Order.find(params[:id]).destroy
    redirect_to orders_path
  end

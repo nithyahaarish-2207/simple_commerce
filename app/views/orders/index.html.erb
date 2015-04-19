@@ -9,11 +9,11 @@
 <%= link_to "Create New Order", products_path,:class => 'btn btn-primary' %>
 
 <table class="table table-striped">
-<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed today") %></th><tr>
+<tr><th></th><th></th><th><%= "Orders Placed Today : #{ @order_today.count}" %></th><th></th><th></th><tr>
 <%= render :partial => "dashboard", :locals => { :orders => @order_today, :model_class => Order }%>
-<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed this week") %></th><tr>
+<tr><th></th><th></th><th class="col-md-2"><%= "Orders Placed This Week : #{ @order_this_week.count}" %></th><th></th><th></th><tr>
 <%= render :partial => "dashboard", :locals => { :orders => @order_this_week, :model_class => Order }%>
-<tr><th></th><th></th><th></th><th><%= model_class.human_attribute_name("Orders placed This Month") %></th><tr>
+<tr><th></th><th></th><th class="col-md-2"><%= "Orders Placed This Month : #{ @order_this_month.count}" %></th><th></th><th></th><tr>
 <%= render :partial => "dashboard", :locals => { :orders => @order_this_month, :model_class => Order }%>
 </table>
 

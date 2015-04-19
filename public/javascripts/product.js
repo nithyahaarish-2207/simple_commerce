@@ -1,7 +1,10 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 function check_prod(id){
-document.getElementById("check_"+id).checked = true;
+  if (document.getElementById("check_"+id).checked == true)
+   document.getElementById("check_"+id).checked = false;
+  else
+   document.getElementById("check_"+id).checked = true;
 }
 
 function create_order(){

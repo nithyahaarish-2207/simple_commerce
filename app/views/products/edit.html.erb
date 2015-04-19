@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+<%= stylesheet_link_tag    "product", :media => "all" %>
+<%= javascript_include_tag "bootstrap" %>
 <%- model_class = Product -%>
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>

@@ -51,6 +51,7 @@ SimpleCommerce::Application.routes.draw do
    root :to => "orders#index"
    resources :orders
    resources :products
+   match '/view/:id' => 'orders#view', via: :get, as: :view_order
 
   # See how all your routes lay out with "rake routes"
 
