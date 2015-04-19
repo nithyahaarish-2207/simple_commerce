@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+<%= javascript_include_tag "bootstrap" %>
+<%- model_class = Product -%>
+
+<h1><%=t '.title', :default => "Viewing Order Number : #{@order.id}" %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="col-md-1"><%= model_class.human_attribute_name(:id) %></th>
+      <th class="col-md-1"><%= model_class.human_attribute_name(:title) %></th>
+      <th class="col-md-1"><%= model_class.human_attribute_name(:description) %></th>
+      <th class="col-md-1"><%= model_class.human_attribute_name(:price) %></th>
+      <th class="col-md-1"><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @line_items.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.created_at.strftime("%m/%d/%Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%=link_to 'Back', orders_path, :class => 'btn btn-primary '%>
