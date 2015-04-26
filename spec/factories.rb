@@ -11,10 +11,9 @@ FactoryGirl.define do
     f.price "85"
   end
   factory :order do |f|
-    #~ f.products: [build(:product), build(:product, :title => "test1", :price=>90)]
-    association :product, factory: :product
-    f.status "unfulfilled"
-    #~ f.total_price [build(:product), build(:product, :title => "test1", :price=>90)].sum(&:price)
+    product = [FactoryGirl.create(:product), FactoryGirl.create(:product, :title =>"test2")]
+    f.products product
+    f.total_price 54
+    f.status false
   end
-
 end

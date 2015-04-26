@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
           render :js => "window.location = #{list_order_path.to_json}"
         end
       end
-   #~ redirect_to orders_path
+   redirect_to list_order_path
  end
  
  def list
