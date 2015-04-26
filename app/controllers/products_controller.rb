@@ -1,9 +1,8 @@
 class ProductsController < ApplicationController
- def index
-    @products = Product.all
-  end
+  before_filter :authenticate_user!
 
-  def show
+ def index
+    @products = Product.find(:all, :order=>("created_at DESC"))
   end
 
   def new
@@ -19,14 +18,14 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
+        flash[:notice] = "New product added"
         format.html { redirect_to products_path, notice: 'product was successfully created.' }
-        format.json { render json: products_path, status: :created, location: @product }
       else
+        flash[:notice] = "Form is invalid"
         format.html { render action: "new" }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
-end
+  end
   def update
     @product = Product.find(params[:id])
     respond_to do |format|

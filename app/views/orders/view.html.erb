@@ -1,30 +1,49 @@
-<%= stylesheet_link_tag    "bootstrap", :media => "all" %>
-<%= javascript_include_tag "bootstrap" %>
 <%- model_class = Product -%>
-
-<h1><%=t '.title', :default => "Viewing Order Number : #{@order.id}" %></h1>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="col-md-1"><%= model_class.human_attribute_name(:id) %></th>
-      <th class="col-md-1"><%= model_class.human_attribute_name(:title) %></th>
-      <th class="col-md-1"><%= model_class.human_attribute_name(:description) %></th>
-      <th class="col-md-1"><%= model_class.human_attribute_name(:price) %></th>
-      <th class="col-md-1"><%= model_class.human_attribute_name(:created_at) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @line_items.each do |product| %>
-      <tr>
-        <td><%= product.id %></td>
-        <td><%= product.title %></td>
-        <td><%= product.description %></td>
-        <td><%= product.price %></td>
-        <td><%= product.created_at.strftime("%m/%d/%Y") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%=link_to 'Back', orders_path, :class => 'btn btn-primary '%>
+			 <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            Order View <small>Lists products in current order</small>
+                        </h1>
+                    </div>
+                </div> 
+                 <!-- /. ROW  -->
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             Product
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                      <tr>
+                                        <th><%= model_class.human_attribute_name(:title) %></th>
+                                        <th><%= model_class.human_attribute_name(:description) %></th>
+                                        <th><%= model_class.human_attribute_name(:price) %></th>
+                                        <th><%= model_class.human_attribute_name(:created_at) %></th>
+                                     </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% @line_items.each do |product| %>
+                                        <tr>
+                                          <td><%= product.title %></td>
+                                          <td><%= product.description %></td>
+                                          <td><%= product.price %></td>
+                                          <td><%= product.created_at.strftime("%m/%d/%Y") %></td>
+                                        </tr>
+                                      <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <%=link_to 'Back', list_order_path, :class => 'btn btn-primary '%>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            </div>
+                <!-- /. ROW  -->
+    <%=javascript_include_tag "jquery.metisMenu.js" %>

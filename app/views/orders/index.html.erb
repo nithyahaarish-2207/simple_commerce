@@ -1,20 +1,152 @@
-  <%= stylesheet_link_tag    "bootstrap", :media => "all" %>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "bootstrap" %>
-  <%= javascript_include_tag "application" %>
-<%- model_class = Order -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => "Orders Dashboard" %></h1>
-</div>
-<%= link_to "Create New Order", products_path,:class => 'btn btn-primary' %>
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-<table class="table table-striped">
-<tr><th></th><th></th><th><%= "Orders Placed Today : #{ @order_today.count}" %></th><th></th><th></th><tr>
-<%= render :partial => "dashboard", :locals => { :orders => @order_today, :model_class => Order }%>
-<tr><th></th><th></th><th class="col-md-2"><%= "Orders Placed This Week : #{ @order_this_week.count}" %></th><th></th><th></th><tr>
-<%= render :partial => "dashboard", :locals => { :orders => @order_this_week, :model_class => Order }%>
-<tr><th></th><th></th><th class="col-md-2"><%= "Orders Placed This Month : #{ @order_this_month.count}" %></th><th></th><th></th><tr>
-<%= render :partial => "dashboard", :locals => { :orders => @order_this_month, :model_class => Order }%>
-</table>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order</title>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <%= stylesheet_link_tag    'bootstrap', media: 'all' %>
+    <%= stylesheet_link_tag    'font-awesome', media: 'all' %>
+    <link href="public/stylesheets/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <%= stylesheet_link_tag    'custom-styles', media: 'all' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+    <%= javascript_include_tag 'jquery-1.10.2' %>
+    <%= javascript_include_tag 'bootstrap.min' %>
+    <%= javascript_include_tag 'morris/raphael-2.1.0.min' %>
+    <%= javascript_include_tag 'morris/morris' %>
+    <%= javascript_include_tag 'custom-scripts' %>
+</head>
 
-<%= link_to "Create New Order", products_path,:class => 'btn btn-primary' %>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><b>Easy</b>Commerce</a>
+            </div>
+
+            <ul class="nav navbar-top-links center">
+                <li><%= button_to "Logout", user_logout_path, :method => :delete, :class => "btn btn-danger" if session[:user_id]%>
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                    <i class="fa fa-dashboard"></i>
+                    <%= link_to "Dashboard", orders_path, :class => "active-menu"%>
+                    </li>
+                    <li>
+                    <i class="fa fa-dashboard"></i>
+                    <%= link_to "Orders", list_order_path%>
+                    </li>
+					<li>
+                    <i class="fa fa-dashboard"></i>
+                    <%= link_to "Create Order", products_path%>
+                    </li>
+                    <li>
+                    <i class="fa fa-dashboard"></i>
+                    <%= link_to "Create Product", new_product_path%>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Order Summary</small>
+                        </h1>
+                    </div>
+                </div>
+				
+				
+                <!-- /. ROW  -->
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-green green">
+                            <div class="panel-left pull-left green">
+                                <i class="fa fa-bar-chart-o fa-5x"></i>
+                                
+                            </div>
+                            <div class="panel-right pull-right">
+								<h3><%= @order_today.count %></h3>
+                               <strong> Orders today</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-blue blue">
+                              <div class="panel-left pull-left blue">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+								</div>
+                                
+                            <div class="panel-right pull-right">
+							<h3><%= @order_this_week.count %></h3>
+                               <strong> Orders this week</strong>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-red red">
+                            <div class="panel-left pull-left red">
+                                <i class="fa fa fa-comments fa-5x"></i>
+                               
+                            </div>
+                            <div class="panel-right pull-right">
+							 <h3><%= @order_this_month.count %></h3>
+                               <strong> Orders this month </strong>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Line Chart
+						</div>
+						<div class="panel-body">
+							<div id="morris-line-chart">
+							  <%= line_chart Order.group_by_day(:created_at, format: "%B %d, %Y").sum(:total_price), {discrete: true, library: {hAxis: {title: "Date"}, vAxis: {title: "Total Price"}}} %>
+                            </div>
+						</div>
+					</div>  
+					</div>		
+				</div> 
+				
+                       </div>
+
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+				<footer><p>All right reserved. <a href="#">SimpleCommerce</a></p></footer>
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+ </body>
+
+</html>
