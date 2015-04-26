@@ -7,13 +7,13 @@ function check_prod(id){
    document.getElementById("check_"+id).checked = true;
 }
 
-function create_order(){
+function create_order(id){
 var selected = [];
 $('input:checked').each(function() {
     selected.push($(this).attr('value'));
 });
 if(selected.length > 0)
-  $.post("orders",{ids: selected} );
+  $.post("orders",{ids: selected, user: id} );
 else
   alert("Please select a product to proceed");
 }
